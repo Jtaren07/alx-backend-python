@@ -5,7 +5,7 @@ import asyncio
 async def async_fetch_users():
     async with aiosqlite("users.db") as db:
         async with db.execute("SELECT * FROM users") as cursor:
-            users = await cursot.fetchall()
+            users = await cursor.fetchall()
             print("ALL users:", users)
             return users
 
