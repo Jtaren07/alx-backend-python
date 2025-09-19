@@ -41,7 +41,7 @@ class User(AbstractUser):
 class Conversation(models.Model):
     """Models to track conversations between users.
     Uses a many-to-many relationship to handle multiple participants."""
-    converstion_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
+    conversation_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     participants = models.ManyToManyField(User, related_name='conversations', blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
