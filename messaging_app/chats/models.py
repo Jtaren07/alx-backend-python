@@ -21,6 +21,7 @@ class User(AbstractUser):
     last_name = models.CharFiled(max_length=159, null=False, blank=False)
     email = models.EmailField(unique=True, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
+    password_hash = models.CharField(max_length=128, null=False, blank=False)
 
     role = models.CharField(
             max_length=10, choices=ROLE_CHOICES, null=False, blank=False, default='guest')
