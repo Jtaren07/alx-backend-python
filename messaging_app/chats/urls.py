@@ -29,3 +29,4 @@ def api_root(request, format=None):
         'search_users': reverse('conversation-search-users', request=request, format=format),
         'recent_messages': reverse('message-recent', request=request, format=format),
         })
+
