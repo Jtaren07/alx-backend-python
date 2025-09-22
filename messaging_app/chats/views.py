@@ -11,7 +11,7 @@ from .filters import MessageFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
-class ConversationViewSet(viewssets.ModelViewSet):
+class ConversationViewSet(viewsets.ModelViewSet):
     queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
     permission_classes = [IsAuthenticated, IsParticipantOfConversation]
