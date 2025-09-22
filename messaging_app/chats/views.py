@@ -1,41 +1,28 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
-from .models import *
-from .setializers import MessageSerializer, ConversationSerializer
-from .permissions import import IsParticipantOfConversation
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
-from rest_framework.response iport Response
-from .pagination import StandardResultsSetPagination
-from .filters import MessageFilter
-from django_filters.rest_framework import DjangoFilterBackend
+# permissions.py
+from rest_framework.permissions import BasePermission
+from .models import Conversation
 
-# Create your views here.
-class ConversationViewSet(viewsets.ModelViewSet):
-    queryset = Conversation.objects.all()
-    serializer_class = ConversationSerializer
-    permission_classes = [IsAuthenticated, IsParticipantOfConversation]
+class IsParticipantOfConversation(BasePermission):
+    """
+    Custom permission to check if the user is a participant of the conversation.
+    """
 
+    def has_permission(self, request, view):
+        # Allow read-only access for anyone (e.g., to list conversations)
+        if view.action in ['list', 'retrieve', 'create']:
+            return request.user.is_authenticated
 
-    def get_queryset(self):
-        # Show only conversations the user participates in
-        return Conversation.objects.filter(participants=self.request.user)
+        # For other actions like 'update', 'destroy', we need to check object-level permissions
+        return True
 
-class MessageViewSet(viewsets.ModelViewSet):
-    serializer_class = MessageSerializer
-    permission_classes = [IsAuthenticated, IsParticipantOfConversation]
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = MessageFilter
-    pagination_class = StandardResultsSetPagination
-
-    def gey_queryset(self):
-        conversation_id = self.kwargs.get('conversation_id')
-        return Message.objects.filter(
-                conversation__id = conversation_id,
-                conversation__participants = self.request.user
-            )
-
-    def perform_create(self, serializer):
-        conversation_id = self.kwargs.get('conversation_id')
-        conversation = get_object_or_404(Conversation, id=conversation_id)
-        serializer.save(sender=self.request.user, conversation=conversation)
+    def has_object_permission(self, request, view, obj):
+        # Check if the user is a participant of the conversation object.
+        # This handles access to individual Conversation or Message objects.
+        if isinstance(obj, Conversation):
+            return request.user in obj.participants.all()
+        
+        # If the object is a Message, check the parent conversation
+        if hasattr(obj, 'conversation'):
+            return request.user in obj.conversation.participants.all()
+            
+        return False
