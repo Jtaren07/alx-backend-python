@@ -1,0 +1,4 @@
+[26/Sep/2025 09:37:42] "GET /api/auth HTTP/1.1" 404 3526
+[26/Sep/2025 09:37:53] "GET /api/login HTTP/1.1" 301 0
+[26/Sep/2025 09:37:53] "GET /api/login/ HTTP/1.1" 200 2700
+[26/Sep/2025 09:38:05] "GET /api/chats/ HTTP/1.1" 200 5777
