@@ -87,9 +87,10 @@ REST_FRAMEWORK = {
     ],
     
     # Pagination
-    'DEFAULT_PAGINATION_CLASS': 'chats.pagination.StandardResultsSetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
     
+
     # Filter backends
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -156,11 +157,11 @@ WSGI_APPLICATION = 'messaging_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE'),
-        'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': os.getenv('MYSQL_HOST', 'db'),
-        'PORT': os.getenv('MYSQL_PORT', '3306'),
+        'NAME': 'alx_prodev',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -183,6 +184,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# settings.py
+AUTH_USER_MODEL = 'chats.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
