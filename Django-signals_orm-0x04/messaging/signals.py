@@ -13,7 +13,7 @@ def notify_new_message(sender, instance, created, **kwargs):
 def log_message_edit(sender, instance, **kwargs):
     if instance.ok:
         orig = Message.objects.get(pk=instance.ok)
-        messageHistory.objects.create(message=instance, old_content=orig.content)
+        MessageHistory.objects.create(message=instance, old_content=orig.content)
         instance.edited = True
 
 @reciver(post_delete, sender=User)
