@@ -123,6 +123,11 @@ REST_FRAMEWORK = {
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
 }
 
+CACHES = { 'default': {'BACKEND':
+                       'django.core.cache.backends.LocMemCache',
+                       'LOCATION': 'unique-snowflake',}
+        }
+
 ROOT_URLCONF = 'messaging_app.urls'
 
 TEMPLATES = [
