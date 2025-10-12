@@ -16,7 +16,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /app/
 
 # Expose Django's default port
-EXPOSE 8000
+-p 8080:8000
 
 # Run Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
