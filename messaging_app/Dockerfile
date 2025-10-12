@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Copy requirements and install dependencies
 COPY Requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r Requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy project files into container
 COPY . /app/
