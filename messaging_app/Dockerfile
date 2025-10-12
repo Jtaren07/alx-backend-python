@@ -1,5 +1,5 @@
 # Use Python 3.10 base image
-FROM python:3.12
+FROM python:3.10
 
 # Set environment variables to prevent .pyc files and enable unbuffered logs
 ENV PYTHONDONTWRITEBYTECODE=1
