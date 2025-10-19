@@ -1,0 +1,15 @@
+#!/bin/bash
+# Script to start kubernetes cluster using Minikube and check status
+
+set -e #Exit imediately if a command exists with a non-zero status
+
+echo "=== Starting Minikube cluster ==="
+minikube start --driver=docker
+
+echo "=== Verifying cluster info ==="
+kubectl cluster-info
+
+echo "=== Listing available pods in all namespaces ==="
+kubectl get pods --all-namespaces
+
+echo "=== Kubernetes local cluster is up and running! ==="
